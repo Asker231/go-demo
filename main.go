@@ -1,8 +1,7 @@
 package main
 
-	import "fmt"
+import ()
 
 	func  main(){
-	    fmt.Printf("10")
-							
+		Calculate()
 	}
