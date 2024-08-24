@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math"
+
+	"golang.org/x/text/width"
 )
 
 
@@ -11,17 +13,31 @@ import (
 		w , h := InputUser()
 		IMT := CalcIMT(w,h)
 
-		if IMT < 16{
+
+		switch{
+		case IMT < 16:
 			fmt.Println("Cильный дефицит IMT")
-		}else if IMT <= 16 && IMT < 18.5{
+		case IMT < 18.5:
 			fmt.Println("У вас дефицит IMT")
-		}else if IMT >= 18.5 && IMT <25{
-			fmt.Println("У вас нормальный вес")
-		}else if IMT >= 25 && IMT < 30{
+		case IMT < 25:
 			fmt.Println("У вас избыточный вес")
-		}else{
+		case IMT < 30:
+			fmt.Println("У вас избыточный вес")
+		default:
 			fmt.Println("Вы жирный!")
+
 		}
+		// if IMT < 16{
+		// 	fmt.Println("Cильный дефицит IMT")
+		// }else if IMT <= 16 && IMT < 18.5{
+		// 	fmt.Println("У вас дефицит IMT")
+		// }else if IMT >= 18.5 && IMT <25{
+		// 	fmt.Println("У вас нормальный вес")
+		// }else if IMT >= 25 && IMT < 30{
+		// 	fmt.Println("У вас избыточный вес")
+		// }else{
+		// 	fmt.Println("Вы жирный!")
+		// }
 
 
 	}
