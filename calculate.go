@@ -1,54 +1,56 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
-
-	"golang.org/x/text/width"
 )
 
 
 	func Calculate(){
 		fmt.Println("__Калькулятор индекса массы тела__")
-		w , h := InputUser()
-		IMT := CalcIMT(w,h)
+		var userChoise string
 
+		for{
+			w , h, err := InputUser()
+			if err != nil{
+				panic(err)
+			}
+			IMT := CalcIMT(w,h)
+			switch{
+			case IMT < 16:
+				fmt.Println("Cильный дефицит IMT")
+			case IMT < 18.5:
+				fmt.Println("У вас дефицит IMT")
+			case IMT < 25:
+				fmt.Println("У вас избыточный вес")
+			case IMT < 30:
+				fmt.Println("У вас избыточный вес")
+			default:
+				fmt.Println("Вы жирный!")
+	
+			}
+			fmt.Println("Начать заново? y/n")
+			fmt.Scan(&userChoise)
 
-		switch{
-		case IMT < 16:
-			fmt.Println("Cильный дефицит IMT")
-		case IMT < 18.5:
-			fmt.Println("У вас дефицит IMT")
-		case IMT < 25:
-			fmt.Println("У вас избыточный вес")
-		case IMT < 30:
-			fmt.Println("У вас избыточный вес")
-		default:
-			fmt.Println("Вы жирный!")
-
+			if userChoise != "y"{
+				break
+			}
 		}
-		// if IMT < 16{
-		// 	fmt.Println("Cильный дефицит IMT")
-		// }else if IMT <= 16 && IMT < 18.5{
-		// 	fmt.Println("У вас дефицит IMT")
-		// }else if IMT >= 18.5 && IMT <25{
-		// 	fmt.Println("У вас нормальный вес")
-		// }else if IMT >= 25 && IMT < 30{
-		// 	fmt.Println("У вас избыточный вес")
-		// }else{
-		// 	fmt.Println("Вы жирный!")
-		// }
-
 
 	}
 
-	func InputUser()(float64,float64){
+	func InputUser()(float64,float64,error){
 		var w,h float64
 		fmt.Println("Введите ваш вес:")
 		fmt.Scan(&w)
 		fmt.Println("Введите ваш рост:")
 		fmt.Scan(&h)
-		return w,h
+
+		if w < 0 && h < 0{
+			return 0, 0, errors.New("Not_Valid_Data")
+		}
+		return w, h, nil
 	}
 
 	func CalcIMT(w,h float64) float64{
